@@ -32,7 +32,7 @@ export default () => (
           />
 
           <Button color="blue" fluid size="large">
-            Enter Latitude and Longitude
+            Enter Gary's Latitude and Longitude
           </Button>
         </Form>
       </Segment>
