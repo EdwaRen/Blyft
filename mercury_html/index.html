@@ -122,30 +122,22 @@
     <div>
     <b>Start:</b>
     <select id="start">
-      <option value="Halifax, NS">Halifax, NS</option>
-      <option value="Boston, MA">Boston, MA</option>
-      <option value="New York, NY">New York, NY</option>
-      <option value="Miami, FL">Miami, FL</option>
+      <option value="Once Upon A Child, Varsity, calgary, ab">once upon</option>
+      <option value="Marion Carson Elementary School, Varsity, calgary, ab">Halifax, NS</option>
     </select>
     <br>
     <b>Waypoints:</b> <br>
     <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
     <select multiple id="waypoints">
-      <option value="montreal, quebec">Montreal, QBC</option>
-      <option value="toronto, ont">Toronto, ONT</option>
-      <option value="chicago, il">Chicago</option>
-      <option value="winnipeg, mb">Winnipeg</option>
-      <option value="fargo, nd">Fargo</option>
-      <option value="calgary, ab">Calgary</option>
-      <option value="spokane, wa">Spokane</option>
+      <option value="51.046507727920556, -114.0692819988">School</option>
+      <option value="51.0696185,-114.0597601">Calgary</option>
     </select>
     <br>
     <b>End:</b>
     <select id="end">
-      <option value="Vancouver, BC">Vancouver, BC</option>
-      <option value="Seattle, WA">Seattle, WA</option>
-      <option value="San Francisco, CA">San Francisco, CA</option>
-      <option value="Los Angeles, CA">Los Angeles, CA</option>
+      <option value="Calgary Tower, downtown, calgary, ab">Calgary Tower</option>
+      <option value="East Village, calgary, ab">East Village/option>
+      <option value="CORE Shopping Centre, downtown, calgary, ab">CORE Shopping Centre</option>
     </select>
     <br>
       <input type="submit" id="submit">
@@ -158,7 +150,7 @@
         var directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
-          center: {lat: 41.85, lng: -87.65}
+          center: {lat: 51.0486, lng: -114.0708}
         });
         directionsDisplay.setMap(map);
 
@@ -170,17 +162,34 @@
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
         var checkboxArray = document.getElementById('waypoints');
+
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
+        xmlHttp.send( null );
+        loc_list =  JSON.parse(xmlHttp.responseText);
+        console.log("checkboxArray", loc_list);
+
         for (var i = 0; i < checkboxArray.length; i++) {
           if (checkboxArray.options[i].selected) {
+            loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
+
+            console.log("ind checkbox val", checkboxArray[i].value, loc);
+            console.log("loc val", (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()))
+
             waypts.push({
-              location: checkboxArray[i].value,
+              location: loc, //(loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()) ,
               stopover: true
             });
           }
         }
+        console.log("waypts", waypts);
+        loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
+        dest = (loc_list[i.toString()][0][2][0].toString() + ", " + loc_list[i.toString()][0][2][1].toString())
+        console.log("start val", document.getElementById('start').value, loc, dest)
 
         directionsService.route({
-          origin: document.getElementById('start').value,
+          origin: loc,
           destination: document.getElementById('end').value,
           waypoints: waypts,
           optimizeWaypoints: true,

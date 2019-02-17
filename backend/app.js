@@ -21,6 +21,20 @@ app.locals.cur_locations = [['wow'], ['nice', "gneiss"]];
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers',
+    'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+};
+
 mongoose.connect('mongodb://localhost:27017/busroutes', {useNewUrlParser: true});
 
 const User = mongoose.model('users', new mongoose.Schema({
@@ -38,7 +52,7 @@ const User = mongoose.model('users', new mongoose.Schema({
 // 6 handpicked destinations
 
 
-app.get('/addRoute', function(req, res){
+app.post('/addRoute', function(req, res){
     let {startLat, startLng, endLat, endLng} = req.query;
     let obj = {
         start: {
