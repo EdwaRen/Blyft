@@ -87,8 +87,8 @@ app.post('/locationRequest', function(req, res){
 
 
 
-    response_obj = {"res": [req.body]}
-    res.json()
+    response_obj = {"res": req.body}
+    res.json(response_obj);
 
 });
 
