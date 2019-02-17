@@ -70,5 +70,27 @@ for i in centers.tolist():
 print(new_list)
 
 # POST request
-r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
-print(r.content)
+# r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
+
+import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["busroutes"]
+mycol = mydb["return_list"]
+
+mylist = new_list
+
+# delete all
+x = mycol.delete_many({})
+
+# add updated back in
+x = mycol.insert_many(mylist)
+
+# print list of the _id values of the inserted documents:
+print(x.inserted_ids)
+
+
+
+
+
+# print("k means", r.content)
