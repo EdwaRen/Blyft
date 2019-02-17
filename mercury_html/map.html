@@ -50,7 +50,6 @@
                 <br>
                 <button type="button"  onclick="myFunction()"> Enter </button>
                 <br>
-                <p id = "word"> "hi" </p>
             </form>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap"></script>
                 
@@ -59,9 +58,9 @@
                         function initMap() {
                             var directionsService = new google.maps.DirectionsService;
                             var directionsDisplay = new google.maps.DirectionsRenderer;
-                            var map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 6,
-                                center: {lat: 41.85, lng: -87.65}
+                            map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 12,
+                                center: {lat:  51.049427, lng:-114.070911}
                             });
 
                             
@@ -73,12 +72,12 @@
                             if(e.keyCode == 13){
                                 alert('api call!')
                                 var myLatLng = {lat: -25.363, lng: 131.044};
-                            directionsDisplay.setMap(map);
-                            var marker = new google.maps.Marker({
-                                position: myLatLng,
-                                map: map,
-                                title: 'Hello World!'
-                            });
+                                directionsDisplay.setMap(map);
+                                var marker = new google.maps.Marker({
+                                    position: myLatLng,
+                                    map: map,
+                                    title: 'Hello World!'
+                                });
                             }
                         });
                         
@@ -86,26 +85,37 @@
                     <script>
                            
                                     function myFunction() {
-                                        var xy = document.getElementById("start").value;
-                                        var yz = document.getElementById("end").value;
-                                        var z = "; ";
-                                        document.getElementById("word").innerHTML = xy;
-                                        var data = "data1=xy&data2=yz&data3=z";
-                                        //var url = "http://138.197.131.70:8080/addRoute/?startLat=xy&startLng=102&endLat=yz&endLng=104&fbclid=IwAR2mTXAyQ0ve0DYS65Qul5JfaRh38VgSS2Ugflw0GG64cliCuYq47g7ltzo";
-                                        var url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2";
-                                        var xmlhttp;
-                                        xmlhttp = XMLHttpRequest();
 
-                                        xml.onreadystatechange=function() {
-                                            if(xmlhttp.readyState ==4) {
-                                                JSON.parse(smlhttp.responseText);
-                                                alert(obj.Error);
-                                            }
-                                        }
+                                        var start = document.getElementById("start").value;
+                                        var end = document.getElementById("end").value;
+                                        var url = `http://138.197.131.70:8080/addRoute/?start=${start}&end=${end}`;
 
-                                        xmlhttp.open("POST", url, true);
-                                        //xmlhttp.setRequestHeader("Content-type", applicat)
-                                        xml.send(data);
+                                        var xmlHttp = new XMLHttpRequest();
+                                        xmlHttp.open( "POST", url, true ); // false for synchronous request
+                                        //xmlHttp.send( null );
+                                        console.log(xmlHttp.responseText)
+                                        xmlHttp.send(xmlHttp.responseText);
+                                        return xmlHttp.responseText;
+
+
+                                        // document.getElementById("word").innerHTML = xy;
+                                        // var data = "data1=xy&data2=yz&data3=z";
+                                        // //var url = "http://138.197.131.70:8080/addRoute/?startLat=xy&startLng=102&endLat=yz&endLng=104&fbclid=IwAR2mTXAyQ0ve0DYS65Qul5JfaRh38VgSS2Ugflw0GG64cliCuYq47g7ltzo";
+                                        // var url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2";
+                                        // var xmlhttp;
+                                        // xmlhttp = XMLHttpRequest();
+
+                                        // xml.onreadystatechange=function() {
+                                        //     console.log("re, s", smlhttp.responseText);
+                                        //     if(xmlhttp.readyState ==4) {
+                                        //         JSON.parse(smlhttp.responseText);
+                                        //         alert(obj.Error);
+                                        //     }
+                                        // }
+
+                                        // xmlhttp.open("POST", url, true);
+                                        // //xmlhttp.setRequestHeader("Content-type", applicat)
+                                        // xml.send(data);
                                         
                                     }
                                 </script>

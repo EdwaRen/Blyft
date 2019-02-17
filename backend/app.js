@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const fs = require('fs');
-var path = require('path');
+const path = require('path');
+const gmaps = require('./gmaps.js');
+
+gmaps.getLatLng('107 Macewan Meadow Crescent NW', function([lat, lng]){
+    console.log(lat + " " + lng)
+});
 
 const db_cred = JSON.parse(fs.readFileSync('db_credentials.json'));
 // let port = process.env.PORT || 80;
