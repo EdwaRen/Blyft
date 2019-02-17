@@ -8,6 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
+          <img src="10-1335_web_atms_banner.jpg" alt="banner" width ="500" height="240"/>
           {/*
           <img src={logo} className="App-logo" alt="logo" />
           */}
