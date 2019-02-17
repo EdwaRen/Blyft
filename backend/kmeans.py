@@ -60,7 +60,7 @@ new_list = []
 j = 2
 k = 3
 for i in centers.tolist():
-    new_list.append([i] + destinations[j] + destinations[k])
+    new_list.append([i] + [destinations[j]]+ [destinations[k]])
     j+=1
     k+=1
     if j >= 6:
@@ -70,5 +70,5 @@ for i in centers.tolist():
 print(new_list)
 
 # POST request
-r = requests.post('http://localhost:8080/locationRequest', data = {"centers": centers.tolist()})
+r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
 print(r.content)

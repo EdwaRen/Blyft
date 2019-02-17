@@ -11,6 +11,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+app.locals.cur_locations = [['wow'], ['nice', "gneiss"]];
 
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
@@ -66,13 +67,17 @@ app.get('/addRoute', function(req, res){
 });
 
 app.get('/getRoutes', function(req, res){
+    console.log("global variable test", req.app.locals.cur_locations);
     res.send("get routes");
-    res.sendFile(path.join(__dirname + '/index.html'));
+    // res.sendFile(path.join(__dirname + '/index.html'));
 
 });
 
 app.post('/locationRequest', function(req, res){
     console.log(req.body);
+    req.app.locals.cur_locations = req.body;
+    console.log("NEW");
+    console.log(req.app.locals.cur_locations);
     // console.log(req.body[0]);
 
     // res.send("location request")
