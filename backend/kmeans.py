@@ -72,6 +72,7 @@ for i in centers.tolist():
 # POST request
 # r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
 
+print("about to puymongo")
 import pymongo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -81,7 +82,7 @@ mycol = mydb["return_list"]
 mylist = new_list
 
 # delete all
-x = mycol.delete_many({})
+# x = mycol.delete_many({})
 
 # add updated back in
 x = mycol.insert_many(mylist)
