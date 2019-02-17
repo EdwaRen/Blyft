@@ -20,7 +20,7 @@ collection = db['users']
 cursor = list(collection.find({}))
 print(cursor)
 
-data = np.array[ [i['start']['lat'], i['start']['lng'] ] for i in cursor ]
+data = np.array([ [i['start']['lat'], i['start']['lng'] ]  for i in cursor ])
 
 
 plt.figure(figsize=(10,5))
