@@ -170,49 +170,55 @@
         loc_list =  JSON.parse(xmlHttp.responseText);
         console.log("checkboxArray", loc_list);
 
-        for (var i = 0; i < checkboxArray.length; i++) {
-          if (checkboxArray.options[i].selected) {
-            loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
+        for (var z = 0; z < 4; z++) {
 
-            console.log("ind checkbox val", checkboxArray[i].value, loc);
-            console.log("loc val", (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()))
+          for (var i = 0; i < 1; i++) {
 
-            waypts.push({
-              location: loc, //(loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()) ,
-              stopover: true
-            });
+              console.log("new arr",i,  loc_list[z.toString()][0][i][0] )
+
+            // if (checkboxArray.options[i].selected) {
+              loc = (loc_list[z.toString()][0][i][0].toString() + ", " + loc_list[z.toString()][0][i][1].toString())
+
+              console.log("ind checkbox val", checkboxArray[i].value, loc);
+              // console.log("loc val", (loc_list[i.toString()][z][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()))
+
+              waypts.push({
+                location: loc, //(loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()) ,
+                stopover: true
+              });
+            // }
           }
-        }
-        console.log("waypts", waypts);
-        loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
-        dest = (loc_list[i.toString()][0][2][0].toString() + ", " + loc_list[i.toString()][0][2][1].toString())
-        console.log("start val", document.getElementById('start').value, loc, dest)
+          console.log("waypts", waypts);
+          loc = (loc_list[i.toString()][z][0][0].toString() + ", " + loc_list[i.toString()][z][0][1].toString())
+          dest = (loc_list[i.toString()][z][2][0].toString() + ", " + loc_list[i.toString()][z][2][1].toString())
+          console.log("start val", document.getElementById('start').value, loc, dest)
 
-        directionsService.route({
-          origin: loc,
-          destination: document.getElementById('end').value,
-          waypoints: waypts,
-          optimizeWaypoints: true,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-            var route = response.routes[0];
-            var summaryPanel = document.getElementById('directions-panel');
-            summaryPanel.innerHTML = '';
-            // For each route, display summary information.
-            for (var i = 0; i < route.legs.length; i++) {
-              var routeSegment = i + 1;
-              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                  '</b><br>';
-              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+          directionsService.route({
+            origin: loc,
+            destination: dest,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+          }, function(response, status) {
+            if (status === 'OK') {
+              directionsDisplay.setDirections(response);
+              var route = response.routes[0];
+              var summaryPanel = document.getElementById('directions-panel');
+              summaryPanel.innerHTML = '';
+              // For each route, display summary information.
+              for (var i = 0; i < route.legs.length; i++) {
+                var routeSegment = i + 1;
+                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                    '</b><br>';
+                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+              }
+            } else {
+              window.alert('Directions request failed due to ' + status);
             }
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
+          });
+        }
       }
     </script>
     <script async defer
