@@ -68,8 +68,9 @@ app.get('/addRoute', function(req, res){
 
 app.get('/getRoutes', function(req, res){
     console.log("global variable test", req.app.locals.cur_locations);
-    res.send("get routes");
     // res.sendFile(path.join(__dirname + '/index.html'));
+    console.log(req.app.locals.cur_locations);
+    res.json(req.app.locals.cur_locations)
 
 });
 
