@@ -14,7 +14,7 @@ from pymongo import MongoClient
 #
 # post =  {}
 # print(list(db.test.find()))
-client = MongoClient("138.197.131.70", 27017, maxPoolSize=50)
+client = MongoClient("localhost", 27017, maxPoolSize=50)
 db = client.busroutes
 collection = db['users']
 cursor = collection.find({})
