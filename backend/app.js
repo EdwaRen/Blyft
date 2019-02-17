@@ -42,6 +42,7 @@ app.get('/addRoute', function(req, res){
 
     const { spawn } = require('child_process');
     const pyProg = spawn('python', ['kmeans.py']);
+    console.log("pyProg launched");
 
     pyProg.stdout.on('data', function(data) {
         console.log("logging data");
@@ -59,8 +60,8 @@ app.get('/getRoutes', function(req, res){
 });
 
 app.post('/locationRequest', function(req, res){
-    console.log(req);
-    console.log(req[0]);
+    console.log(req.body);
+    // console.log(req.body[0]);
 
     res.send("location request")
 });
