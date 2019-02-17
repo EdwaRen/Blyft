@@ -129,8 +129,8 @@
     <b>Waypoints:</b> <br>
     <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
     <select multiple id="waypoints">
-      <option value="Westmount Charter Elementary School, Parkdale, calgary, ab">School</option>
-      <option value="Parkdale Auto Service, Parkdale, calgary, ab">Calgary</option>
+      <option value="51.046507727920556, -114.0692819988">School</option>
+      <option value="51.0696185,-114.0597601">Calgary</option>
     </select>
     <br>
     <b>End:</b>
@@ -150,7 +150,7 @@
         var directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
-          center: {lat: 41.85, lng: -87.65}
+          center: {lat: 51.0486, lng: -114.0708}
         });
         directionsDisplay.setMap(map);
 
@@ -162,17 +162,34 @@
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
         var checkboxArray = document.getElementById('waypoints');
+
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
+        xmlHttp.send( null );
+        loc_list =  JSON.parse(xmlHttp.responseText);
+        console.log("checkboxArray", loc_list);
+
         for (var i = 0; i < checkboxArray.length; i++) {
           if (checkboxArray.options[i].selected) {
+            loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
+
+            console.log("ind checkbox val", checkboxArray[i].value, loc);
+            console.log("loc val", (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()))
+
             waypts.push({
-              location: checkboxArray[i].value,
+              location: loc, //(loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()) ,
               stopover: true
             });
           }
         }
+        console.log("waypts", waypts);
+        loc = (loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString())
+        dest = (loc_list[i.toString()][0][2][0].toString() + ", " + loc_list[i.toString()][0][2][1].toString())
+        console.log("start val", document.getElementById('start').value, loc, dest)
 
         directionsService.route({
-          origin: document.getElementById('start').value,
+          origin: loc,
           destination: document.getElementById('end').value,
           waypoints: waypts,
           optimizeWaypoints: true,
