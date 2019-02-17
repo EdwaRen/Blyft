@@ -73,9 +73,8 @@ for i in centers.tolist():
 # r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
 
 print("about to puymongo")
-import pymongo
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = MongoClient("mongodb://localhost:27017/")
 mydb = myclient["busroutes"]
 mycol = mydb["return_list"]
 
@@ -85,7 +84,7 @@ mylist = new_list
 # x = mycol.delete_many({})
 
 # add updated back in
-x = mycol.insert_many(mylist)
+x = collection.insert_many(mylist)
 
 # print list of the _id values of the inserted documents:
 print("inserted ids", x.inserted_ids)
