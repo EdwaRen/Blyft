@@ -21,7 +21,7 @@ const User = mongoose.model('user', new mongoose.Schema({
 
 app.get('/', function(req, res){
     let {startLat, startLng, endLat, endLng} = req.query;
-    let obj = {   
+    let obj = {
         start: {
             lat: startLat,
             lng: startLng
@@ -31,12 +31,12 @@ app.get('/', function(req, res){
             lng: endLng
         }
     };
-    
+
     let newUser = new User(obj);
     newUser.save(function(err, res){
         if(err) console.log(err);
     });
-    res.send();
+    res.send('done');
 });
 
 app.get('/getRoutes', function(req, res){
