@@ -41,7 +41,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/getRoutes', function(req, res){
-
+    res.send("get routes")
 });
 
 app.post('/locationRequest', function(req, res){
@@ -50,6 +50,6 @@ app.post('/locationRequest', function(req, res){
 
 // app.listen(port);
 
-app.listen(3000, function() {
-  console.log('server stared on port 3000')
+app.listen(8080, function() {
+  console.log('server stared on port 8080')
 });
