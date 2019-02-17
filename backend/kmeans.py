@@ -351,5 +351,5 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 print(centers.tolist())
 
 # POST request
-r = requests.post('http://138.197.131.70:8080/locationRequest', data = {"centers": centers.tolist()})
+r = requests.post('http://localhost:8080/locationRequest', data = {"centers": centers.tolist()})
 print(r.content)

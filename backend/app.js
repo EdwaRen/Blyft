@@ -6,11 +6,19 @@ var path = require('path');
 
 const db_cred = JSON.parse(fs.readFileSync('db_credentials.json'));
 // let port = process.env.PORT || 80;
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 
-// mongoose.connect(`mongodb+srv://${db_cred.username}:${db_cred.password}@busroutes-hd8th.mongodb.net/BusPool`, { useNewUrlParser: true });
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
 mongoose.connect('mongodb://localhost:27017/busroutes', {useNewUrlParser: true});
 
 const User = mongoose.model('users', new mongoose.Schema({
+
     start: {
         lat: Number,
         lng: Number
