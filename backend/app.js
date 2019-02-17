@@ -53,35 +53,44 @@ const User = mongoose.model('users', new mongoose.Schema({
 
 
 app.post('/addRoute', function(req, res){
-    let {startLat, startLng, endLat, endLng} = req.query;
-    let obj = {
-        start: {
-            lat: startLat,
-            lng: startLng
-        },
-        end: {
-            lat: endLat,
-            lng: endLng
+    let {start_add, end_add} = req.query;
+    gmaps.getLatLng(start_add, function([start_lat, start_lng]){
+        gmaps.getLatLng(end_add, function([end_lat, end_lng]){
+
+          console.log(lat + " " + lng)
+          let obj = {
+              start: {
+                  lat: start_lat,
+                  lng: start_lng
+              },
+              end: {
+                  lat: end_lat,
+                  lng: end_lng
+              }
+          };
+
+          let newUser = new User(obj);
+          newUser.save(function(err, res){
+              if(err) console.log(err);
+          });
+
+
+          const { spawn } = require('child_process');
+          const pyProg = spawn('python3', ['kmeans.py']);
+          console.log("pyProg launched");
+
+          pyProg.stdout.on('data', function(data) {
+              console.log("logging data");
+              // console.log(data.toString());
+              // res.write(data);
+              res.end('end');
+          });
+          console.log("end detected");
         }
-    };
 
-    let newUser = new User(obj);
-    newUser.save(function(err, res){
-        if(err) console.log(err);
     });
 
 
-    const { spawn } = require('child_process');
-    const pyProg = spawn('python3', ['kmeans.py']);
-    console.log("pyProg launched");
-
-    pyProg.stdout.on('data', function(data) {
-        console.log("logging data");
-        // console.log(data.toString());
-        // res.write(data);
-        res.end('end');
-    });
-    console.log("end detected");
 
 });
 
