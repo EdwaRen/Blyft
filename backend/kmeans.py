@@ -63,9 +63,9 @@ for i in centers.tolist():
     new_list.append([i] + destinations[j] + destinations[k])
     j+=1
     k+=1
-    if j >= len(centers.tolist()):
+    if j >= 6:
         j = 0
-    if k >= len(centers.tolist()):
+    if k >= 6:
         k = 0
 print(new_list)
 
