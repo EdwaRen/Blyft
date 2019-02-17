@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polylines</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      // This example creates a 2-pixel-wide red polyline showing the path of
+      // the first trans-Pacific flight between Oakland, CA, and Brisbane,
+      // Australia which was made by Charles Kingsford Smith.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 51.0450, lng:  -114.0618},
+          mapTypeId: 'terrain'
+        });
+
+        var xmlHttp = new XMLHttpRequest();
+         xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
+         xmlHttp.send( null );
+         loc_list =  JSON.parse(xmlHttp.responseText);
+         console.log("checkboxArray", loc_list);
+
+         lat_list = []
+         z = 0
+         for (var z = 0; z < 30; z++) {
+           lat_list = []
+
+           for (var i = 0; i < 3; i++) {
+
+             console.log("new arr",i,  loc_list[z.toString()][0][i][0] );
+
+           // if (checkboxArray.options[i].selected) {
+             x = loc_list[z.toString()][0][i][0]
+             y = loc_list[z.toString()][0][i][1]
+             lat_list.push({"lat":x, "lng": y})
+
+           }
+
+        console.log("ind checkbox val", lat_list);
+        // console.log("ind checkbox val", flightPlanCoordinates);
+        var flightPath = new google.maps.Polyline({
+          path: lat_list,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        flightPath.setMap(map);
+
+      }
+
+
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap">
+    </script>
+  </body>
+</html>

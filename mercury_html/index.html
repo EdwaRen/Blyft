@@ -141,9 +141,10 @@
     <br>
       <input type="submit" id="submit">
     </div>
-    <div id="directions-panel"></div>
+    <div id="map-canvas"></div>
     </div>
     <script>
+<<<<<<< HEAD
       function initMap() {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -196,6 +197,55 @@
           }
         });
       }
+=======
+    function initMap() {
+           var map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 3,
+             center: {lat: 0, lng: -180},
+             mapTypeId: 'terrain'
+           });
+
+           var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
+            xmlHttp.send( null );
+            loc_list =  JSON.parse(xmlHttp.responseText);
+            console.log("checkboxArray", loc_list);
+
+            lat_list = []
+
+            for (var i = 0; i < 50; i++) {
+
+              console.log("new arr",i,  loc_list[i.toString()][0][0][0] );
+
+            // if (checkboxArray.options[i].selected) {
+              x = loc_list[i.toString()][0][0][0]
+              y = loc_list[i.toString()][0][0][1]
+              lat_list.append({"lat":x, "lng": y})
+
+              console.log("ind checkbox val", lat_list);
+            }
+
+            // }
+
+
+           var flightPlanCoordinates = [
+             {lat: 37.772, lng: -122.214},
+             {lat: 21.291, lng: -157.821},
+             {lat: -18.142, lng: 178.431},
+             {lat: -27.467, lng: 153.027}
+           ];
+           var flightPath = new google.maps.Polyline({
+             path: flightPlanCoordinates,
+             geodesic: true,
+             strokeColor: '#FF0000',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+
+           flightPath.setMap(map);
+         }
+
+>>>>>>> 93e2ed470bd8b4b5783f55ec139885deb3d38dcd
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap">
