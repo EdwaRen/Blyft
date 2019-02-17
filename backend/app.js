@@ -29,6 +29,9 @@ const User = mongoose.model('users', new mongoose.Schema({
     }
 }));
 
+// 6 handpicked destinations
+
+
 app.get('/addRoute', function(req, res){
     let {startLat, startLng, endLat, endLng} = req.query;
     let obj = {
@@ -73,7 +76,13 @@ app.post('/locationRequest', function(req, res){
     // console.log(req.body[0]);
 
     // res.send("location request")
-    res.sendFile(path.join(__dirname + '/index.html'));
+    // res.sendFile(path.join(__dirname + '/index.html'));
+
+
+
+
+    response_obj = {"res": [req.body]}
+    res.json()
 
 });
 
