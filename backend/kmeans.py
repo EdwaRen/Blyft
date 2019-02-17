@@ -17,9 +17,8 @@ from pymongo import MongoClient
 client = MongoClient("localhost", 27017, maxPoolSize=50)
 db = client.busroutes
 collection = db['users']
-cursor = collection.find({})
-for document in cursor:
-    print(document)
+cursor = list(collection.find({}))
+print(cursor)
 
 
 data = np.array([[51.0459659018231, -114.0691813769432],
@@ -341,6 +340,9 @@ data = np.array([[51.0459659018231, -114.0691813769432],
 [51.04612185543294, -114.06934181217333],
 [51.04567720498967, -114.06930728245752],
 [51.045643754014094, -114.06926221993129]])
+
+data = np.array[ [i['start']['lat'], i['start']['lng'] ] for i in cursor ]
+
 
 plt.figure(figsize=(10,5))
 from sklearn.datasets.samples_generator import make_blobs
