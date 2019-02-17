@@ -82,7 +82,7 @@ mycol = mydb["return_list"]
 mylist = new_list
 
 # delete all
-# x = mycol.delete_many({})
+x = mycol.delete_many({})
 
 # add updated back in
 x = mycol.insert_many(mylist)

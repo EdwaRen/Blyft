@@ -16,6 +16,12 @@ app.locals.cur_locations = [['wow'], ['nice', "gneiss"]];
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 mongoose.connect('mongodb://localhost:27017/busroutes', {useNewUrlParser: true});
 
 const User = mongoose.model('users', new mongoose.Schema({
