@@ -1,0 +1,114 @@
+    <html>
+        <head>
+            <title>Maps</title>
+            <style>
+                *{
+                    margin: 0;
+                    padding: 0;
+                }
+                #map{
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                }
+                form{
+                    position: absolute;
+                    z-index: 2;
+                    top: 12%;
+                    left: 1%;
+                
+                }
+                input[type="text"]{
+                    width: 300px;
+                    height: 35px;
+                    padding: 5px 10px;
+                    border: 1px #000000 solid;
+                    font-size: 17px;
+                    display: block;
+                    margin-top: 10px
+                } 
+                input[type="box"] {
+                    width: 80px;
+                    height: 30px;
+                    padding: 5px 10px;
+                    border: 1px #000000 solid;
+                    font-size: 17px;
+                    display: block;
+                    margin-top: 10px
+                }
+            </style>
+        </head>
+        <body>
+ 
+            <div id="map">
+
+            </div>
+            <form action="/" method="POST">
+                    
+                <input type="text" id="start" placeholder="Starting Address"/>
+                <input type="text" id="end" placeholder="Destination" />
+                <br>
+                <button type="button"  onclick="myFunction()"> Enter </button>
+                <br>
+                <p id = "word"> "hi" </p>
+            </form>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap"></script>
+                
+                    <script>
+                        var map;
+                        function initMap() {
+                            var directionsService = new google.maps.DirectionsService;
+                            var directionsDisplay = new google.maps.DirectionsRenderer;
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 6,
+                                center: {lat: 41.85, lng: -87.65}
+                            });
+
+                            
+                        
+                        }
+
+                        document.querySelector('input#start').addEventListener('keydown', function(e){
+                            e = e || window.event;
+                            if(e.keyCode == 13){
+                                alert('api call!')
+                                var myLatLng = {lat: -25.363, lng: 131.044};
+                            directionsDisplay.setMap(map);
+                            var marker = new google.maps.Marker({
+                                position: myLatLng,
+                                map: map,
+                                title: 'Hello World!'
+                            });
+                            }
+                        });
+                        
+                    </script>
+                    <script>
+                           
+                                    function myFunction() {
+                                        var xy = document.getElementById("start").value;
+                                        var yz = document.getElementById("end").value;
+                                        var z = "; ";
+                                        document.getElementById("word").innerHTML = xy;
+                                        var data = "data1=xy&data2=yz&data3=z";
+                                        //var url = "http://138.197.131.70:8080/addRoute/?startLat=xy&startLng=102&endLat=yz&endLng=104&fbclid=IwAR2mTXAyQ0ve0DYS65Qul5JfaRh38VgSS2Ugflw0GG64cliCuYq47g7ltzo";
+                                        var url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2";
+                                        var xmlhttp;
+                                        xmlhttp = XMLHttpRequest();
+
+                                        xml.onreadystatechange=function() {
+                                            if(xmlhttp.readyState ==4) {
+                                                JSON.parse(smlhttp.responseText);
+                                                alert(obj.Error);
+                                            }
+                                        }
+
+                                        xmlhttp.open("POST", url, true);
+                                        //xmlhttp.setRequestHeader("Content-type", applicat)
+                                        xml.send(data);
+                                        
+                                    }
+                                </script>
+            </body>
+
+    </html>
