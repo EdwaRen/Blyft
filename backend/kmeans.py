@@ -18,7 +18,7 @@ client = MongoClient("localhost", 27017, maxPoolSize=50)
 db = client.busroutes
 collection = db['users']
 cursor = list(collection.find({}))
-print(cursor)
+# print(cursor)
 
 data = np.array([ [i['start']['lat'], i['start']['lng'] ]  for i in cursor ])
 
@@ -45,7 +45,7 @@ plt.ylim([-114.069, -114.0695])
 
 plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
-print(centers.tolist())
+# print(centers.tolist())
 
 
 destinations = [[51.0452, 114.0811],
@@ -67,7 +67,7 @@ for i in centers.tolist():
         j = 0
     if k >= 6:
         k = 0
-print(new_list)
+# print(new_list)
 
 # POST request
 # r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
@@ -87,7 +87,7 @@ x = mycol.delete_many({})
 x = mycol.insert_many(mylist)
 
 # print list of the _id values of the inserted documents:
-print(x.inserted_ids)
+print("inserted ids", x.inserted_ids)
 
 
 

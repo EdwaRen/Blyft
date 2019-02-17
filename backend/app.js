@@ -58,7 +58,7 @@ app.get('/addRoute', function(req, res){
 
     pyProg.stdout.on('data', function(data) {
         console.log("logging data");
-        console.log(data.toString());
+        // console.log(data.toString());
         // res.write(data);
         res.end('end');
     });
@@ -89,10 +89,10 @@ app.get('/getRoutes', function(req, res){
 });
 
 app.post('/locationRequest', function(req, res){
-    console.log(req.body);
+    // console.log(req.body);
     req.app.locals.cur_locations = req.body;
     console.log("NEW");
-    console.log(req.app.locals.cur_locations);
+    // console.log(req.app.locals.cur_locations);
     // console.log(req.body[0]);
 
     // res.send("location request")
