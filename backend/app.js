@@ -37,15 +37,31 @@ app.get('/addRoute', function(req, res){
     newUser.save(function(err, res){
         if(err) console.log(err);
     });
+
+
+    const { spawn } = require('child_process');
+    const pyProg = spawn('python', ['./kmeans.py']);
+
+    pyProg.stdout.on('data', function(data) {
+
+        console.log(data.toString());
+        res.write(data);
+        res.end('end');
+    });
+    console.log("end detected");
+
     res.send('done', obj);
 });
 
 app.get('/getRoutes', function(req, res){
-    res.send("get routes")
+    res.send("get routes");
 });
 
 app.post('/locationRequest', function(req, res){
+    console.log(req);
+    console.log(req[0]);
 
+    res.send("location request")
 });
 
 // app.listen(port);

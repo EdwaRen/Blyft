@@ -346,4 +346,8 @@ plt.ylim([-114.069, -114.0695])
 
 plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
-print(centers)
+print(centers.tolist())
+
+# POST request
+r = requests.post('http://localhost:8080/locationRequest', data = {centers.tolist()})
+print(r.content)
