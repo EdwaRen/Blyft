@@ -4,6 +4,22 @@ import seaborn as sns; sns.set()  # for plot styling
 import numpy as np
 import requests
 
+from pymongo import MongoClient
+# client = MongoClient()
+# client = MongoClient('138.197.131.70', 27017)
+#
+# db = client.busroutes
+# collection = db.users
+#
+#
+# post =  {}
+# print(list(db.test.find()))
+client = MongoClient("138.197.131.70", 27017, maxPoolSize=50)
+db = client.busroutes
+collection = db['users']
+cursor = collection.find({})
+for document in cursor:
+    print(document)
 
 
 data = np.array([[51.0459659018231, -114.0691813769432],
