@@ -142,84 +142,56 @@
     <br>
       <input type="submit" id="submit">
     </div>
-    <div id="directions-panel"></div>
+    <div id="map-canvas"></div>
     </div>
     <script>
-      function initMap() {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 6,
-          center: {lat: 51.0486, lng: -114.0708}
-        });
-        directionsDisplay.setMap(map);
+    function initMap() {
+           var map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 3,
+             center: {lat: 0, lng: -180},
+             mapTypeId: 'terrain'
+           });
 
-        document.getElementById('submit').addEventListener('click', function() {
-          calculateAndDisplayRoute(directionsService, directionsDisplay);
-        });
-      }
+           var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
+            xmlHttp.send( null );
+            loc_list =  JSON.parse(xmlHttp.responseText);
+            console.log("checkboxArray", loc_list);
 
-      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        var waypts = [];
-        var checkboxArray = document.getElementById('waypoints');
+            lat_list = []
 
+            for (var i = 0; i < 50; i++) {
 
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "http://138.197.131.70:8080/getroutes", false ); // false for synchronous request
-        xmlHttp.send( null );
-        loc_list =  JSON.parse(xmlHttp.responseText);
-        console.log("checkboxArray", loc_list);
-
-        for (var z = 0; z < 4; z++) {
-
-          for (var i = 0; i < 1; i++) {
-
-              console.log("new arr",i,  loc_list[z.toString()][0][i][0] )
+              console.log("new arr",i,  loc_list[i.toString()][0][0][0] );
 
             // if (checkboxArray.options[i].selected) {
-              loc = (loc_list[z.toString()][0][i][0].toString() + ", " + loc_list[z.toString()][0][i][1].toString())
+              x = loc_list[i.toString()][0][0][0]
+              y = loc_list[i.toString()][0][0][1]
+              lat_list.append({"lat":x, "lng": y})
 
-              console.log("ind checkbox val", checkboxArray[i].value, loc);
-              // console.log("loc val", (loc_list[i.toString()][z][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()))
-
-              waypts.push({
-                location: loc, //(loc_list[i.toString()][0][0][0].toString() + ", " + loc_list[i.toString()][0][0][1].toString()) ,
-                stopover: true
-              });
-            // }
-          }
-          console.log("waypts", waypts);
-          loc = (loc_list[i.toString()][z][0][0].toString() + ", " + loc_list[i.toString()][z][0][1].toString())
-          dest = (loc_list[i.toString()][z][2][0].toString() + ", " + loc_list[i.toString()][z][2][1].toString())
-          console.log("start val", document.getElementById('start').value, loc, dest)
-
-          directionsService.route({
-            origin: loc,
-            destination: dest,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: 'DRIVING'
-          }, function(response, status) {
-            if (status === 'OK') {
-              directionsDisplay.setDirections(response);
-              var route = response.routes[0];
-              var summaryPanel = document.getElementById('directions-panel');
-              summaryPanel.innerHTML = '';
-              // For each route, display summary information.
-              for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1;
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-              }
-            } else {
-              window.alert('Directions request failed due to ' + status);
+              console.log("ind checkbox val", lat_list);
             }
-          });
-        }
-      }
+
+            // }
+
+
+           var flightPlanCoordinates = [
+             {lat: 37.772, lng: -122.214},
+             {lat: 21.291, lng: -157.821},
+             {lat: -18.142, lng: 178.431},
+             {lat: -27.467, lng: 153.027}
+           ];
+           var flightPath = new google.maps.Polyline({
+             path: flightPlanCoordinates,
+             geodesic: true,
+             strokeColor: '#FF0000',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+
+           flightPath.setMap(map);
+         }
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap">
