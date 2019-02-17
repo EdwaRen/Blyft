@@ -28,8 +28,8 @@
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: 0, lng: -180},
+          zoom: 13,
+          center: {lat: 51.0450, lng:  -114.0618},
           mapTypeId: 'terrain'
         });
 
@@ -40,36 +40,36 @@
          console.log("checkboxArray", loc_list);
 
          lat_list = []
+         z = 0
+         for (var z = 0; z < 30; z++) {
+           lat_list = []
 
-         for (var i = 0; i < 3; i++) {
+           for (var i = 0; i < 3; i++) {
 
-           console.log("new arr",i,  loc_list[i.toString()][0][0][0] );
+             console.log("new arr",i,  loc_list[z.toString()][0][i][0] );
 
-         // if (checkboxArray.options[i].selected) {
-           x = loc_list[i.toString()][0][0][0]
-           y = loc_list[i.toString()][0][0][1]
-           lat_list.push({"lat":x, "lng": y})
+           // if (checkboxArray.options[i].selected) {
+             x = loc_list[z.toString()][0][i][0]
+             y = loc_list[z.toString()][0][i][1]
+             lat_list.push({"lat":x, "lng": y})
 
-         }
+           }
 
-
-        var flightPlanCoordinates = [
-          {lat: 37.772, lng: -122.214},
-          {lat: 21.291, lng: -157.821},
-          {lat: -18.142, lng: 178.431},
-          {lat: -27.467, lng: 153.027}
-        ];
         console.log("ind checkbox val", lat_list);
-        console.log("ind checkbox val", flightPlanCoordinates);
+        // console.log("ind checkbox val", flightPlanCoordinates);
         var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
+          path: lat_list,
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
-
         flightPath.setMap(map);
+
+      }
+
+
+
       }
     </script>
     <script async defer

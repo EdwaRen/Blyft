@@ -31,7 +31,7 @@ X = data
 plt.scatter(X[:, 0], X[:, 1], s=50);
 
 from sklearn.cluster import KMeans
-kmeans = KMeans(n_clusters=40)
+kmeans = KMeans(n_clusters=20)
 kmeans.fit(X)
 y_kmeans = kmeans.predict(X)
 
