@@ -341,7 +341,7 @@ data = np.array([[51.0459659018231, -114.0691813769432],
 [51.04567720498967, -114.06930728245752],
 [51.045643754014094, -114.06926221993129]])
 
-data = np.array[ [i['start']['lat'], i['start']['lng'] ] for i in cursor ]
+data = np.array([ [i['start']['lat'], i['start']['lng'] ]  for i in cursor ])
 
 
 plt.figure(figsize=(10,5))
