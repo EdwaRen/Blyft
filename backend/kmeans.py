@@ -2,6 +2,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()  # for plot styling
 import numpy as np
+import requests
+
 
 
 data = np.array([[51.0459659018231, -114.0691813769432],
@@ -349,5 +351,5 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 print(centers.tolist())
 
 # POST request
-r = requests.post('http://localhost:8080/locationRequest', data = {centers.tolist()})
+r = requests.post('http://138.197.131.70:8080/locationRequest', data = {"centers": centers.tolist()})
 print(r.content)
