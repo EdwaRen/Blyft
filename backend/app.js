@@ -58,7 +58,7 @@ app.get('/addRoute', function(req, res){
 
     pyProg.stdout.on('data', function(data) {
         console.log("logging data");
-        console.log(data.toString());
+        // console.log(data.toString());
         // res.write(data);
         res.end('end');
     });
@@ -67,18 +67,32 @@ app.get('/addRoute', function(req, res){
 });
 
 app.get('/getRoutes', function(req, res){
-    console.log("global variable test", req.app.locals.cur_locations);
-    // res.sendFile(path.join(__dirname + '/index.html'));
-    console.log(req.app.locals.cur_locations);
-    res.json(req.app.locals.cur_locations)
+    // console.log("global variable test", req.app.locals.cur_locations);
+    // // res.sendFile(path.join(__dirname + '/index.html'));
+    // console.log(req.app.locals.cur_locations);
+
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("busroutes");
+      dbo.collection("return_list").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+        res.json(result)
+
+      });
+    });
 
 });
 
 app.post('/locationRequest', function(req, res){
-    console.log(req.body);
+    // console.log(req.body);
     req.app.locals.cur_locations = req.body;
     console.log("NEW");
-    console.log(req.app.locals.cur_locations);
+    // console.log(req.app.locals.cur_locations);
     // console.log(req.body[0]);
 
     // res.send("location request")

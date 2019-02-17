@@ -18,7 +18,7 @@ client = MongoClient("localhost", 27017, maxPoolSize=50)
 db = client.busroutes
 collection = db['users']
 cursor = list(collection.find({}))
-print(cursor)
+# print(cursor)
 
 data = np.array([ [i['start']['lat'], i['start']['lng'] ]  for i in cursor ])
 
@@ -45,7 +45,7 @@ plt.ylim([-114.069, -114.0695])
 
 plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
-print(centers.tolist())
+# print(centers.tolist())
 
 
 destinations = [[51.0452, 114.0811],
@@ -59,35 +59,36 @@ new_list = []
 
 j = 2
 k = 3
+ind = 0
 for i in centers.tolist():
-    new_list.append([i] + [destinations[j]]+ [destinations[k]])
+    new_list.append({ind: [i] + [destinations[j]]+ [destinations[k]]})
     j+=1
     k+=1
     if j >= 6:
         j = 0
     if k >= 6:
         k = 0
-print(new_list)
+# print(new_list)
 
 # POST request
 # r = requests.post('http://localhost:8080/locationRequest', data = {"centers": new_list.tolist()})
 
-import pymongo
+print("about to puymongo")
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = MongoClient("mongodb://localhost:27017/")
 mydb = myclient["busroutes"]
 mycol = mydb["return_list"]
 
 mylist = new_list
 
 # delete all
-x = mycol.delete_many({})
+# x = mycol.delete_many({})
 
 # add updated back in
 x = mycol.insert_many(mylist)
 
 # print list of the _id values of the inserted documents:
-print(x.inserted_ids)
+print("inserted ids", x.inserted_ids)
 
 
 
