@@ -54,7 +54,9 @@ const User = mongoose.model('users', new mongoose.Schema({
 
 app.post('/addRoute', function(req, res){
     let {start_add, end_add} = req.query;
+    console.log("add route detected", start_add, end_add);
     gmaps.getLatLng(start_add, function([start_lat, start_lng]){
+        console.log("first geoloca success")
         gmaps.getLatLng(end_add, function([end_lat, end_lng]){
 
           console.log(lat + " " + lng)
@@ -86,7 +88,7 @@ app.post('/addRoute', function(req, res){
               res.end('end');
           });
           console.log("end detected");
-        }
+        });
 
     });
 
