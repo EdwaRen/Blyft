@@ -1,6 +1,7 @@
 {
   "name": "mercury",
   "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
@@ -29,6 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
