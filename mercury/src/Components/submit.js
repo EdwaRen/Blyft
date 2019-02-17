@@ -21,14 +21,14 @@ export default () => (
             fluid
             icon="location arrow"
             iconPosition="left"
-            placeholder="Email address"
+            placeholder=""
           />
           <Form.Input
             fluid
             icon="location arrow"
             iconPosition="left"
-            placeholder="Password"
-            type="password"
+            placeholder=""
+            type=""
           />
 
           <Button color="blue" fluid size="large">

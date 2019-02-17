@@ -1,15 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-import 'semantic-ui-css/semantic.min.css';
+import { Router, Route, hashHistory } from 'react-router';
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+
+
+
+import App from './Components/App';
+
+
+
+
+ReactDOM.render((
+  //
+  // <HashRouter  onUpdate={() => window.scrollTo(0, 0)}>
+  //   <Switch onUpdate={() => window.scrollTo(0, 0)}>
+  //     <Route exact path = "/" component = {Index} />
+  //     <Route exact path = "/media" component = {Media} />
+  //     <Route exact path = "/sponsors" component = {Sponsors} />
+  //     <Route exact path = "/team" component = {Team} />
+  //     <Route exact path = "/contact" component = {Contact} />
+  //     <Route exact path = "/apply" component = {Apply} />
+  //     <Route exact path = "/errorfilesize" component = {ErrorFileSize} />
+  //     <Route exact path = "/errorfieldmissing" component = {ErrorFieldMissing} />
+  //     <Route exact path = "/errorunknown" component = {ErrorUnknown} />
+  //   </Switch>
+  // </HashRouter>
+
+    <App />
+  // </Router>
+), document.getElementById('root'));
