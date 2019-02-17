@@ -38,7 +38,8 @@ app.get('/addRoute', function(req, res){
     newUser.save(function(err, res){
         if(err) console.log(err);
     });
-    res.send('done', obj);
+    console.log(obj)
+    res.send('done');
 });
 
 app.get('/getRoutes', function(req, res){
