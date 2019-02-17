@@ -6,6 +6,7 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
+
     "aphrodite": "^1.2.4",
     "array-to-csv": "^1.0.1",
     "gh-pages": "^1.1.0",
@@ -17,12 +18,14 @@
     "react-google-map": "^3.0.1",
     "react-google-maps": "latest",
     "react-google-maps-loader": "latest",
+    "semantic-ui-css":"latest",
+    "semantic-ui-react":"latest",
+
     "react-pure-render": "^1.0.2",
     "react-router": "3.0.4",
     "react-router-dom": "^4.2.2",
     "recompose": "latest",
-    "redux": "^3.7.2",
-    "webpack": "^3.5.5"
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
