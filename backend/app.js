@@ -20,7 +20,7 @@ const User = mongoose.model('user', new mongoose.Schema({
     }
 }));
 
-app.get('/', function(req, res){
+app.get('/addRoute', function(req, res){
     let {startLat, startLng, endLat, endLng} = req.query;
     let obj = {
         start: {
