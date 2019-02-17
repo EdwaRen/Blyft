@@ -59,8 +59,9 @@ new_list = []
 
 j = 2
 k = 3
+ind = 0
 for i in centers.tolist():
-    new_list.append([i] + [destinations[j]]+ [destinations[k]])
+    new_list.append({ind: [i] + [destinations[j]]+ [destinations[k]]})
     j+=1
     k+=1
     if j >= 6:
