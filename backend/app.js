@@ -6,7 +6,10 @@ const fs = require('fs');
 const db_cred = JSON.parse(fs.readFileSync('db_credentials.json'));
 let port = process.env.PORT || 80;
 
-mongoose.connect(`mongodb+srv://${db_cred.username}:${db_cred.password}@busroutes-hd8th.mongodb.net/BusPool`, { useNewUrlParser: true });
+//mongoose.connect(`mongodb+srv://${db_cred.username}:${db_cred.password}@busroutes-hd8th.mongodb.net/BusPool`, { useNewUrlParser: true });
+
+mongoose.connect('mongodb://localhost:27017/busroutes', {useNewUrlParser: true});
+
 
 const User = mongoose.model('user', new mongoose.Schema({
     start: {
