@@ -85,7 +85,7 @@ mylist = new_list
 # x = mycol.delete_many({})
 
 # add updated back in
-x = collection.insert_many(mylist)
+x = mycol.insert_many(mylist)
 
 # print list of the _id values of the inserted documents:
 print("inserted ids", x.inserted_ids)
