@@ -33,7 +33,7 @@ const User = mongoose.model('users', new mongoose.Schema({
 // 6 handpicked destinations
 
 
-app.get('/addRoute', function(req, res){
+app.post('/addRoute', function(req, res){
     let {startLat, startLng, endLat, endLng} = req.query;
     let obj = {
         start: {
