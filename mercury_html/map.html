@@ -91,10 +91,9 @@
                                         var url = `http://138.197.131.70:8080/addRoute/?start=${start}&end=${end}`;
 
                                         var xmlHttp = new XMLHttpRequest();
-                                        xmlHttp.open( "POST", url, true ); // false for synchronous request
+                                        xmlHttp.open( "GET", url, true ); // false for synchronous request
                                         //xmlHttp.send( null );
-                                        console.log(xmlHttp.responseText)
-                                        xmlHttp.send(xmlHttp.responseText);
+                                        console.log(xmlHttp.responseText);
                                         return xmlHttp.responseText;
 
 

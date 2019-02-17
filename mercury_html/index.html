@@ -64,15 +64,33 @@
     </style>
   </head>
   <body>
+      <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+     
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">Blyft</a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li><a href="index.html">Route Finder</a></li>
+                         <li class="active"><a href="main.html">Home</a></li>
+                         <li><a href="map.html">Map</a></li>
+                    </ul>
+               </div>
+     
+       </div>
+     </div>
 
     <div class="ui grid">
   <div class="two wide column">
 
   </div>
   <div class="six wide column">
-
-    <br />
-
 
 
   </div>
@@ -90,33 +108,14 @@
 </div>
 
 
-
 <div class="ui left action input center">
-  <button class="ui teal labeled icon button">
-    <i class="location pointer"></i>
-    Latitude
-  </button>
-  <input type="text" value="$52.03">
 </div>
 
-<div class="ui left action input center">
-  <button class="ui teal labeled icon button">
-    <i class="location pointer"></i>
-    Longitude
-  </button>
-  <input type="text" value="$52.03">
+<div class="ui left action input center"></div>
+  
 </div>
 
 </div>
-
-
-
-    <br />
-<br />
-
-
-    <br />
-    <br /><br />
     <div id="map"></div>
     <div id="right-panel">
     <div>
@@ -129,8 +128,8 @@
     <b>Waypoints:</b> <br>
     <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
     <select multiple id="waypoints">
-      <option value="51.046507727920556, -114.0692819988">School</option>
-      <option value="51.0696185,-114.0597601">Calgary</option>
+      <option value="Westmount Charter Elementary School, Parkdale, calgary, ab">School</option>
+      <option value="Parkdale Auto Service, Parkdale, calgary, ab">Calgary</option>
     </select>
     <br>
     <b>End:</b>
@@ -145,6 +144,60 @@
     <div id="map-canvas"></div>
     </div>
     <script>
+<<<<<<< HEAD
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {
+            waypts.push({
+              location: checkboxArray[i].value,
+              stopover: true
+            });
+          }
+        }
+
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                  '</b><br>';
+              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            }
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+=======
     function initMap() {
            var map = new google.maps.Map(document.getElementById('map'), {
              zoom: 3,
@@ -192,9 +245,12 @@
            flightPath.setMap(map);
          }
 
+>>>>>>> 93e2ed470bd8b4b5783f55ec139885deb3d38dcd
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipGTaEpZxIOqSRoYJakq64x9BQNjZwJs&callback=initMap">
     </script>
   </body>
 </html>
+
+
