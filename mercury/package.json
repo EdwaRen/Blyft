@@ -5,10 +5,25 @@
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-google-maps": "^9.4.5",
     "react-scripts": "2.1.5",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.85.0"
+
+    "aphrodite": "^1.2.4",
+    "array-to-csv": "^1.0.1",
+    "gh-pages": "^1.1.0",
+    "google-map-react": "^0.27.0",
+    "google-maps-react": "^1.1.2",
+    "invariant": "^2.2.2",
+    "prop-types": "^15.6.0",
+    "react-controllables": "^0.6.0",
+    "react-google-map": "^3.0.1",
+    "react-google-maps": "latest",
+    "react-google-maps-loader": "latest",
+    "react-pure-render": "^1.0.2",
+    "react-router": "3.0.4",
+    "react-router-dom": "^4.2.2",
+    "recompose": "latest",
+    "redux": "^3.7.2",
+    "webpack": "^3.5.5"
   },
   "scripts": {
     "start": "react-scripts start",
