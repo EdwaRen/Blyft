@@ -21,19 +21,24 @@ export default () => (
             fluid
             icon="location arrow"
             iconPosition="left"
-            placeholder="Address of start point"
+            placeholder="Email address"
           />
           <Form.Input
             fluid
             icon="location arrow"
             iconPosition="left"
-            placeholder="Address of end point"
+            placeholder="Password"
+            type="password"
           />
+
           <Button color="blue" fluid size="large">
-            Enter the start and end point of your trip
+            Enter Latitude and Longitude
           </Button>
         </Form>
       </Segment>
+      <Message>
+        Not registered yet? <a href="#">Sign Up</a>
+      </Message>
     </Grid.Column>
   </Grid>
 );
