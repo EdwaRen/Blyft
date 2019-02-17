@@ -5,7 +5,14 @@ const fs = require('fs');
 
 const db_cred = JSON.parse(fs.readFileSync('db_credentials.json'));
 // let port = process.env.PORT || 80;
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
 mongoose.connect('mongodb://localhost:27017/busroutes', {useNewUrlParser: true});
 
